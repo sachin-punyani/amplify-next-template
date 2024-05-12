@@ -1,5 +1,8 @@
 "use client";
 
+import { Authenticator } from '@aws-amplify/ui-react'
+import '@aws-amplify/ui-react/styles.css'
+
 import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
@@ -35,8 +38,9 @@ export default function App() {
     client.models.Todo.delete({ id })
   }
 
-
   return (
+    <Authenticator>
+      {({ signOut, user }) => (
     <main>
       <h1>My todos</h1>
       <button onClick={createTodo}>+ new</button>
@@ -55,6 +59,9 @@ export default function App() {
 	  sachin punyani
         </a>
       </div>
+      <button onClick={signOut}>Sign out</button>
     </main>
+    )}
+    </Authenticator>
   );
 }
